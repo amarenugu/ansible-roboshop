@@ -1,5 +1,5 @@
 - name: roboshop instance management
-  hosts: local
+  hosts: localhost
   connection: local
   vars:
     instances: mongodb-test-instance
@@ -7,6 +7,7 @@
   - name: Create instance 
     amazon.aws.ec2_instance:
       name: "mongodb"
+      region: us-east-1
       instance_type: t3.micro
       security_group: default
       image_id: ami-0220d79f3f480ecf5
