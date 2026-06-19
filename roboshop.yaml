@@ -1,4 +1,6 @@
 - name: roboshop instance management
+  hosts: local
+  connection: local
   vars:
     instances: mongodb-test-instance
   tasks: 
