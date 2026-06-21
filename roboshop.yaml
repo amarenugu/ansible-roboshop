@@ -1,6 +1,5 @@
 - name: roboshop instance management
-  hosts: local
-  connection: local
+  hosts: frontend
   vars:
     instances: ["mongodb", "redis", "mysql", "rabbitmq", "catalogue", "user", "payment", "shippping", "backend", "frontend"]
     image_id: ami-0220d79f3f480ecf5
