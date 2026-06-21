@@ -1,25 +1,53 @@
 - name: roboshop instance management
-  hosts: localhost
+  hosts: local
   connection: local
   vars:
-    instances: mongodb-test-instance
+    instances: ["mongodb", "redis", "mysql", "rabbitmq", "catalogue", "user", "payment", "shippping", "backend", "frontend"]
+    image_id: ami-0220d79f3f480ecf5
+    domain_name: ammienugu.online
+    action: create
   tasks: 
-  - name: Create instance 
+  - name: Create instance
     amazon.aws.ec2_instance:
-      name: "mongodb"
+      name: "roboshop-{{ item }}"
+      image_id: "{{ image_id }}"
       region: us-east-1
       instance_type: t3.micro
-      security_group: default
-      image_id: ami-0220d79f3f480ecf5
-      tags:
-        Environment: UAT
+      security_group: 
+      - "roboshop-{{ item }}"
+      - roboshop-common
+    loop: "{{ instances }}"
+    register: ec2_output
 
-  tasks: 
-  - name: deleteinstance 
-    amazon.aws.ec2_instance:
-      state: absent
-      name: "mongodb"
-      wait: false
-      region: us-east-1
+  - name: Print output
+    debug:
+      msg: " {{ ec2_output }}"
+      
+ 
+
+  # - name: create route53 records
+  #   amazon.aws.route53:
+  #     state: present
+  #     zone: "{{ domain_name }}"
+  #     record: " {{ item.item }}. {{ domain_name }}" ##mongodb.ammienugu.online
+  #     type: A
+  #     ttl: 1
+  #     value: " {{ item.instances[0].private_ip_address }}"
+  #     overwrite: true
+  #   loop: " {{ ec2_output.results }}"
+  #   when: action == "create"
+
+    
+      
+
+
+  # tasks: 
+  # - name: deleteinstance 
+  #   amazon.aws.ec2_instance:
+  #     state: absent
+  #     name: "mongodb"
+  #     wait: false
+  #     region: us-east-1
+
 
   
