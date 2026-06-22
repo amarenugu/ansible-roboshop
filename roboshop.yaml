@@ -14,8 +14,9 @@
       region: us-east-1
       instance_type: t3.micro
       vpc_subnet_id: subnet-0d85deb082679704b
-      security_group: 
+      security_groups: 
         - "roboshop-{{ item }}"
+        - roboshop-common
     loop: "{{ instances }}"
     register: ec2_output
 
@@ -23,7 +24,7 @@
     debug:
       msg: " {{ ec2_output }} "
       
- 
+
 
   # - name: create route53 records
   #   amazon.aws.route53:
