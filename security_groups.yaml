@@ -1,0 +1,41 @@
+- name: Create roboshop security groups
+  hosts: local
+  connection: local
+  tasks:
+  - name: Create roboshop-common security group
+    amazon.aws.ec2_security_group:
+      name: roboshop-common
+      description: Common security group for roboshop
+      region: us-east-1
+      rules:
+        - proto: tcp
+          ports:
+            - 22
+          cidr_ip: 0.0.0.0/0
+
+  - name: Create roboshop instance security groups
+    amazon.aws.ec2_security_group:
+      name: "roboshop-{{ item }}"
+      description: "Security group for roboshop {{ item }}"
+      region: us-east-1
+      rules:
+        - proto: tcp
+          ports:
+            - 80
+            - 443
+            - 8080
+          cidr_ip: 0.0.0.0/0
+    loop:
+      - mongodb
+      - redis
+      - mysql
+      - rabbitmq
+      - catalogue
+      - user
+      - payment
+      - shipping
+      - backend
+      - frontend
+      
+
+  
