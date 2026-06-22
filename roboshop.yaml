@@ -16,7 +16,7 @@
       vpc_subnet_id: subnet-0d85deb082679704b
       security_group: 
       - "roboshop-{{ item }}"
-      - roboshop-common
+      - "roboshop-common"
     loop: "{{ instances }}"
     register: ec2_output
 
