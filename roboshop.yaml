@@ -2,7 +2,7 @@
   hosts: local
   connection : local
   vars:
-    instances: ["mongodb", "redis" ]
+    instances: ["mongodb" ]
     image_id: ami-0220d79f3f480ecf5
     #domain_name: ammienugu.online
     #action: create
@@ -16,7 +16,6 @@
       vpc_subnet_id: subnet-0d85deb082679704b
       security_group: 
       - "roboshop-{{ item }}"
-      - "roboshop-common"
     loop: "{{ instances }}"
     register: ec2_output
 
