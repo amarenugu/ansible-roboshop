@@ -2,9 +2,9 @@
   hosts: local
   connection : local
   vars:
-    instances: ["mongodb", "redis", "mysql", "rabbitmq", "catalogue", "user", "payment", "shipping", "backend", "frontend"]
+    instances: ["mongodb", "redis" ]
     image_id: ami-0220d79f3f480ecf5
-    domain_name: ammienugu.online
+    #domain_name: ammienugu.online
     #action: create
   tasks: 
   - name: Create instance
