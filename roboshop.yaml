@@ -15,7 +15,7 @@
       instance_type: t3.micro
       vpc_subnet_id: subnet-0d85deb082679704b
       security_group: 
-      - "roboshop-{{ item }}"
+        - "roboshop-{{ item }}"
     loop: "{{ instances }}"
     register: ec2_output
 
