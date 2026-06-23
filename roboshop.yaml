@@ -5,7 +5,7 @@
     instances: ["mongodb", "redis", "mysql", "rabbitmq", "catalogue", "user", "payment", "shipping", "backend", "frontend"]
     image_id: ami-0220d79f3f480ecf5
     domain_name: ammienugu.online
-    action: create
+    action: terminate
   tasks: 
   - name: Create instance
     amazon.aws.ec2_instance:
@@ -80,4 +80,4 @@
     - item.item == "frontend"
     - action == "terminate"
 
-    
+
