@@ -55,7 +55,7 @@
   - name: terminate instances
     amazon.aws.ec2_instance:
       state: absent
-      instance_ids: "{{ item.instances[0].id }}"
+      instance_ids: "{{ item.instances[0].instance_id }}"
       region: us-east-1
     loop: "{{ ec2_output.results }}"
     when: action == "terminate"
